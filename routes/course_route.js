@@ -10,6 +10,7 @@ router.use((req, res, next) => {
 // 獲得系統中的所有課程
 router.get("/", async (req, res) => {
   try {
+    //query object(thenable object)
     let courseFound = await Course.find({})
       .populate("instructor", ["username", "email"])
       .exec();
@@ -54,14 +55,22 @@ router.get("/findByName/:name", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   let { _id } = req.params;
   try {
-    let courseFound = await Course.findOne({ _id })
-      .populate("instructor", ["email"])
-      .exec();
+    let courseFound = await Course.findOne({ _id }).exec();
     return res.send(courseFound);
   } catch (e) {
     return res.status(500).send(e);
   }
 });
+
+// router.get("/:_id", async (req, res) => {
+//   let { _id } = req.params;
+//   try {
+//     let courseFound = await Course.findOne({ _id }).exec();
+//     return res.send(courseFound);
+//   } catch (e) {
+//     return res.status(500).send(e);
+//   }
+// });
 
 // 新增課程
 router.post("/", async (req, res) => {
@@ -107,8 +116,9 @@ router.post("/enroll/:_id", async (req, res) => {
 });
 
 // 更改課程
-router.patch("/:_id", async (req, res) => {
+router.patch("/updatedata/:_id", async (req, res) => {
   // 驗證資料符合規範
+  console.log(req.user._id);
   let { error } = courseValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -119,6 +129,7 @@ router.patch("/:_id", async (req, res) => {
     if (!courseFound) {
       return res.status(400).send("找不到課程，無法更新課程內容。");
     }
+
     // 使用者必須是此課程講師，才能編輯課程
     if (courseFound.instructor.equals(req.user._id)) {
       let updateCourse = await Course.findOneAndUpdate({ _id }, req.body, {
@@ -138,7 +149,7 @@ router.patch("/:_id", async (req, res) => {
 });
 
 // 刪除課程
-router.delete("/:_id", async (req, res) => {
+router.delete("/deleteCourse/:_id", async (req, res) => {
   let { _id } = req.params;
   // 確認課程存在
   try {
@@ -152,6 +163,33 @@ router.delete("/:_id", async (req, res) => {
       return res.send("課程已被刪除。");
     } else {
       return res.status(403).send("只有此課程的講師才能刪除課程。");
+    }
+  } catch (e) {
+    return res.status(500).send(e);
+  }
+});
+
+// 取消註冊課程
+router.delete("/deleteEnroll/:_id", async (req, res) => {
+  let { _id } = req.params;
+  // 確認課程存在
+  try {
+    let courseFound = await Course.findOne({ _id }).exec();
+    if (!courseFound) {
+      return res.status(400).send("找不到課程，無法取消註冊該課程。");
+    }
+    // 使用者必須是註冊該課程之學生
+    if (req.user.isStudent()) {
+      //學生必須有註冊該課程
+      if (courseFound.students.includes(req.user._id)) {
+        courseFound.students.pull(req.user._id);
+        await courseFound.save();
+        return res.send("您成功取消註冊該課程。");
+      } else {
+        return res.status(400).send("您沒有註冊該課程。");
+      }
+    } else {
+      return res.status(403).send("只有學生才能取消註冊課程。");
     }
   } catch (e) {
     return res.status(500).send(e);

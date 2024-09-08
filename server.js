@@ -30,7 +30,7 @@ app.use("/api/user", authRoute);
 // course route應該被jwt保護
 // 如果request header內部沒有jwt，則request就會被視為是unauthorized
 app.use(
-  "/api/courses",
+  "/api/course",
   passport.authenticate("jwt", { session: false }),
   courseRoute
 );

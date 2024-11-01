@@ -1,5 +1,6 @@
 const Joi = require("joi");
 
+// 驗證輸入的會員資料符合規範
 const registerValidation = (data) => {
   const schema = Joi.object({
     username: Joi.string().min(3).max(50).required(),
@@ -11,6 +12,7 @@ const registerValidation = (data) => {
   return schema.validate(data);
 };
 
+// 驗證輸入的登入資料符合規範
 const loginValidation = (data) => {
   const schema = Joi.object({
     email: Joi.string().min(6).max(50).required().email(),
@@ -20,6 +22,7 @@ const loginValidation = (data) => {
   return schema.validate(data);
 };
 
+// 驗證輸入的課程資料符合規範
 const courseValidation = (data) => {
   const schema = Joi.object({
     title: Joi.string().min(6).max(50).required(),

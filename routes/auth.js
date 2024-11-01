@@ -4,11 +4,12 @@ const loginValidation = require("../validation").loginValidation;
 const User = require("../models").user;
 const jwt = require("jsonwebtoken");
 
+// 確認
 router.use((req, res, next) => {
   console.log("正在接收一個跟auth有關的請求");
   next();
 });
-
+// 測試
 router.get("/testAPI", (req, res) => {
   return res.send("成功連結auth route...");
 });

@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Course = require("../models").course;
 const courseValidation = require("../validation").courseValidation;
 
+// 確認
 router.use((req, res, next) => {
   console.log("course route正在接受一個request...");
   next();
@@ -62,16 +63,6 @@ router.get("/:_id", async (req, res) => {
   }
 });
 
-// router.get("/:_id", async (req, res) => {
-//   let { _id } = req.params;
-//   try {
-//     let courseFound = await Course.findOne({ _id }).exec();
-//     return res.send(courseFound);
-//   } catch (e) {
-//     return res.status(500).send(e);
-//   }
-// });
-
 // 新增課程
 router.post("/", async (req, res) => {
   // 驗證資料符合規範
@@ -92,7 +83,8 @@ router.post("/", async (req, res) => {
       price,
       instructor: req.user._id,
     });
-    let savedCourse = await newCourse.save();
+    // let savedCourse = await newCourse.save();
+    await newCourse.save();
     return res.send({
       msg: "新課程已經保存",
       //savedCourse,

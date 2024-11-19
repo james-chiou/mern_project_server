@@ -83,7 +83,7 @@ router.post("/", async (req, res) => {
       price,
       instructor: req.user._id,
     });
-    let savedCourse = await newCourse.save();
+    //let savedCourse = await newCourse.save();
     await newCourse.save();
     return res.send({
       msg: "新課程已經保存",

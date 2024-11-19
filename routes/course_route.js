@@ -68,13 +68,13 @@ router.post("/", async (req, res) => {
   // 驗證資料符合規範
   let { error } = courseValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-
+  // 確認身分是否為講師
   if (req.user.isStudent()) {
     return res
       .status(400)
       .send("只有講師才能發佈新課程。若你已經是講師，請透過講師帳號登入。");
   }
-
+  // 建立新課程
   let { title, description, price } = req.body;
   try {
     let newCourse = new Course({
@@ -110,14 +110,14 @@ router.post("/enroll/:_id", async (req, res) => {
 // 更改課程
 router.patch("/updatedata/:_id", async (req, res) => {
   // 驗證資料符合規範
-  console.log(req.user._id);
+  //console.log(req.user._id);
   let { error } = courseValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   let { _id } = req.params;
   // 確認課程存在
   try {
-    let courseFound = await Course.findOne({ _id });
+    let courseFound = await Course.findOne({ _id }).exec();
     if (!courseFound) {
       return res.status(400).send("找不到課程，無法更新課程內容。");
     }
@@ -170,7 +170,7 @@ router.delete("/deleteEnroll/:_id", async (req, res) => {
     if (!courseFound) {
       return res.status(400).send("找不到課程，無法取消註冊該課程。");
     }
-    // 使用者必須是註冊該課程之學生
+    // 使用者必須是學生
     if (req.user.isStudent()) {
       //學生必須有註冊該課程
       if (courseFound.students.includes(req.user._id)) {

@@ -42,7 +42,7 @@ router.post("/register", async (req, res) => {
 
 // 登入
 router.post("/login", async (req, res) => {
-  //確認數據是否符合規範
+  //確認填寫的資料是否符合規範
   let { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
       const tokenObject = { _id: foundUser._id, email: foundUser.email };
       const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
       return res.send({
-        message: "成功登入",
+        msg: "成功登入",
         token: "JWT " + token,
         user: foundUser,
       });

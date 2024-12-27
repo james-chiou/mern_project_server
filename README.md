@@ -4,14 +4,15 @@
 3. 使用Passport.js完成會員登入
 4. 使用MongoDB儲存會員資料
 5. 會員資料(auth.js)相關 RESTful API  
-   5.1 會員註冊 POST "/register"  
-   5.2 會員登入 GET "/login"
+   * 會員註冊 POST "/register"  
+   * 會員登入 GET "/login"
 6. 課程(course_route.js)相關 RESTful API  
-   6.1 會員身份為 教師:
-   * 新建課程 POST "/api/post"
-   * 編輯課程 PATCH "/updatedata/:_id"
-   * 刪除課程 DELETE "/deleteCourse/:_id"
-      
-   6.2 會員身份為 學生: 註冊課程/取消註冊課程
+   * 會員身份為 教師:
+      * 新建課程 POST "/api/post"
+      * 編輯課程 PATCH "/updatedata/:_id"
+      * 刪除課程 DELETE "/deleteCourse/:_id"  
+   * 會員身份為 學生:
+      * 註冊課程 POST "/enroll/:_id"
+      * 取消註冊課程 DELETE "/deleteEnroll/:_id"
 
    

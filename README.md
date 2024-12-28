@@ -1,6 +1,6 @@
 # 線上學習網站 (後端)  
 1. 本專案為前、後端分離
-2. 後端以Express.js為框架，[前端](https://github.com/james-chiou/mern_project_client){:target="_blank"} 則以React.js為框架
+2. 後端以Express.js為框架，[前端](https://github.com/james-chiou/mern_project_client){target="_blank"} 則以React.js為框架
 ## 目標
 1. 使用React、Express、Node.js與MongoDB完成一個MERN專案
 2. 模仿線上學習網站，老師可以開設課程，而學生能夠註冊想要學習的課程

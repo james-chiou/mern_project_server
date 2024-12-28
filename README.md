@@ -25,7 +25,7 @@
 ```
 3. 會員資料(auth.js)相關 RESTful API  
    1. 會員註冊 POST "/register"
-      ```javascript
+   ```javascript
       {
          username,
          email,
@@ -34,18 +34,18 @@
             enum: ["student", "instructor"]
          },
       }
-      ```
+   ```
    2. 會員登入 GET "/login"
-     ```javascript
+    ```javascript
       {
         email,
         password,
       }
-      ```
+    ```
 4. 課程(course_route.js)相關 RESTful API  
    1. 會員身份為 教師:
       * 新增課程 POST "/"
-        ```javascript
+      ```javascript
       {
          title,
          description,
@@ -54,7 +54,7 @@
       }
       ```
       * 編輯課程內容 PATCH "/updatedata/{course_id}"
-       ```javascript
+      ```javascript
       {
          title,
          description,

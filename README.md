@@ -1,8 +1,7 @@
 # 線上學習網站 (後端)  
 1. 本專案為前、後端分離
 2. 後端以Express.js為框架，
-   [前端](https://github.com/james-chiou/mern_project_client){:target="_blank" rel="noopener"}
-   則以React.js為框架
+   [前端](https://github.com/james-chiou/mern_project_client)則以React.js為框架
 ## 目標
 1. 使用React、Express、Node.js與MongoDB完成一個MERN專案
 2. 模仿線上學習網站，老師可以開設課程，而學生能夠註冊想要學習的課程
@@ -67,7 +66,7 @@
    3. 會員身份為 學生:
       * 註冊課程 POST "/enroll/{course_id}"
       * 取消註冊課程 DELETE "/deleteEnroll/{course_id}"
-5.  本專案使用[Render](https://render.com/){:target="_blank"}網站進行部署，前往[線上學習網站](https://mern-project-client-49t7.onrender.com){:target="_blank"}
+5.  本專案使用[Render](https://render.com/)網站進行部署，前往[線上學習網站](https://mern-project-client-49t7.onrender.com)
 ## 注意事項
 因Render網站的決策，本專案的Server不使用時會進入睡眠，所以在進行註冊/登入時會需要等待30秒以上。
 

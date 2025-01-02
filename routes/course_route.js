@@ -74,6 +74,21 @@ router.post("/", async (req, res) => {
       .status(400)
       .send("只有講師才能發佈新課程。若你已經是講師，請透過講師帳號登入。");
   }
+  const formatPrice = (num) => {
+    let str = num.toString();
+    let res = "";
+    let count = 0;
+
+    for (let i = str.length - 1; i > 0; i--) {
+      res = str[i] + res;
+      count++;
+
+      if (count % 3 === 0 && i != 0) {
+        res = "," + res;
+      }
+    }
+    return res;
+  };
   // 建立新課程
   let { title, description, price } = req.body;
   try {
@@ -87,6 +102,12 @@ router.post("/", async (req, res) => {
     await newCourse.save();
     return res.send({
       msg: "新課程已經保存",
+      course: {
+        title: newCourse.title,
+        description: newCourse.description,
+        price: newCourse.price.formatPrice(), // 格式化價格
+        instructor: newCourse.instructor,
+      },
       //savedCourse,
     });
   } catch (e) {

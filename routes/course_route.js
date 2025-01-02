@@ -105,7 +105,7 @@ router.post("/", async (req, res) => {
       course: {
         title: savedCourse.title,
         description: savedCourse.description,
-        price: savedCourse.price.formatPrice(), // 格式化價格
+        price: formatPrice(savedCourse.price), // 格式化價格
         instructor: savedCourse.instructor,
       },
       //savedCourse,

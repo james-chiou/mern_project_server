@@ -79,11 +79,11 @@ router.post("/", async (req, res) => {
     let res = "";
     let count = 0;
 
-    for (let i = str.length - 1; i > 0; i--) {
+    for (let i = str.length - 1; i >= 0; i--) {
       res = str[i] + res;
       count++;
 
-      if (count % 3 === 0 && i != 0) {
+      if (count % 3 === 0 && i !== 0) {
         res = "," + res;
       }
     }
